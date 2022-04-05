@@ -64,7 +64,7 @@
 		AC5C961227E928D600F1349B /* view_extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = view_extensions.swift; sourceTree = "<group>"; };
 		AC5C961427E9E8A600F1349B /* custom_alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = custom_alert.swift; sourceTree = "<group>"; };
 		AC5C961B27ED2B4B00F1349B /* button_styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = button_styles.swift; sourceTree = "<group>"; };
-		AC61FB0527B94023004713B7 /* CARDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CARDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC61FB0527B94023004713B7 /* YTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC61FB0827B94023004713B7 /* cards_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cards_iosApp.swift; sourceTree = "<group>"; };
 		AC61FB0A27B94023004713B7 /* RootDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootDirectory.swift; sourceTree = "<group>"; };
 		AC61FB0C27B9402F004713B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		AC61FB0627B94023004713B7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AC61FB0527B94023004713B7 /* CARDS.app */,
+				AC61FB0527B94023004713B7 /* YTree.app */,
 				AC34D1F727F4868C00A9B3FB /* ColorTest.xctest */,
 			);
 			name = Products;
@@ -303,7 +303,7 @@
 			);
 			name = cards_ios;
 			productName = cards_ios;
-			productReference = AC61FB0527B94023004713B7 /* CARDS.app */;
+			productReference = AC61FB0527B94023004713B7 /* YTree.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -591,7 +591,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Phil-Weckenmann.cards-ios";
-				PRODUCT_NAME = CARDS;
+				PRODUCT_NAME = YTree;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -620,7 +620,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Phil-Weckenmann.cards-ios";
-				PRODUCT_NAME = CARDS;
+				PRODUCT_NAME = YTree;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
