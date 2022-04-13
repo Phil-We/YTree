@@ -18,14 +18,24 @@ struct ColorPickerSheet:View {
     var body: some View{
 
         VStack(spacing: 0) {
-            tools()
-                //.padding(.horizontal).padding(.vertical,8)
-            if horizontalSizeClass == .regular {
+            tools
+            
+            //(horizontalSizeClass == .compact) ? compactLayout : regularLayout
+            switch horizontalSizeClass {
+            case .compact:
+                compactLayout
+            case .regular:
+                regularLayout
+            default:
+                compactLayout
+            }
+            /*
+            if horizontalSizeClass == .compact {
                 HStack (spacing: 30){
                     VStack{
                         
                         ZStack(alignment: .top) {
-                            HSLPicker(color: color)
+                            ColorWheel(color: color)
                             HStack{
                                 Image(systemName: "eyedropper.halffull")
                                     .foregroundColor(.accentColor)
@@ -85,25 +95,25 @@ struct ColorPickerSheet:View {
                             case 0:
                             HStack {
                                 Spacer()
-                                HSLPicker(color: color).frame(width: 200, height: 200)//.fixedSize()
+                                ColorWheel(color: color).frame(width: 200, height: 200)//.fixedSize()
                                 Spacer()
                             }
-                            sliders(opacitySlider: true).frame(width: .infinity, height: .infinity)
+                            sliders(opacitySlider: true).frame(maxWidth: .infinity, maxHeight: .infinity)
                             case 1:
                                 PaletteListView(color: color)
                             default:
                                 ShadedColorView(color: color)
                         }
-                    }.frame(width: .infinity, height: .infinity)
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 //}.frame(width: .infinity, height: .infinity).padding(.top).ignoresSafeArea()
             }
+            */
         }
-        //.frame(width: 750, height: 400)
         .padding()
         .background(.regularMaterial)//Color(uiColor: .systemGroupedBackground))
         
     }
-    func tools() -> some View {
+    var tools: some View {
         HStack {
             Spacer()
             Button {self.showPicker = false} label: {
@@ -111,6 +121,86 @@ struct ColorPickerSheet:View {
             }
             .padding(.trailing)
         }
+    }
+    
+    var compactLayout: some View {
+        VStack{
+            Picker("Slider", selection: $tag) {
+                Text("Color").tag(0)
+                Text("Palette").tag(1)
+                Text("Shading").tag(2)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.bottom)
+            
+            //ScrollView(.vertical){
+                VStack{
+                    switch tag{
+                        case 0:
+                        HStack {
+                            Spacer()
+                            ColorWheel(color: color).frame(width: 200, height: 200)//.fixedSize()
+                            Spacer()
+                        }
+                        sliders(opacitySlider: true).frame(maxWidth: .infinity, maxHeight: .infinity)
+                        case 1:
+                            PaletteListView(color: color)
+                        default:
+                            ShadedColorView(color: color)
+                    }
+                }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+    var regularLayout: some View {
+        HStack (spacing: 30){
+            VStack{
+                
+                ZStack(alignment: .top) {
+                    ColorWheel(color: color)
+                    HStack{
+                        Image(systemName: "eyedropper.halffull")
+                            .foregroundColor(.accentColor)
+                            .font(.system(size: 25))
+
+                        Spacer()
+                        Circle()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.clear)
+                            .overlay(Circle().strokeBorder(Color.primary))
+                            .background(
+                                Rectangle()
+                                    .fill(.red)
+                                    .frame(width:2)
+                                    .rotationEffect(.degrees(-45))
+                            )
+                        Circle()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(color.toColor())
+                            .overlay(Circle().strokeBorder(Color.primary))
+                    }
+                }
+                Slider(value: $color.alpha, in: 0...1)
+            }
+            VStack{
+                Picker("Slider", selection: $tag) {
+                    Text("Color").tag(0)
+                    Text("Palette").tag(1)
+                    Text("Shading").tag(2)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                
+                switch tag{
+                    case 0:
+                        sliders()
+                    case 1:
+                        PaletteListView(color: color)
+                    default:
+                        ShadedColorView(color: color)
+                }
+            }//.padding(.leading)
+        }
+        .padding([.leading, .bottom, .trailing])
+        .frame(width: 750, height: 400)
     }
     
     func sliders(opacitySlider: Bool = false) -> some View {
@@ -315,101 +405,186 @@ struct ShadedColorView: View {
     }
 }
 
-struct HSLPicker: View {
+struct ColorWheel: View {
     @ObservedObject var color: CustomColor
-    @State private var isDragging = false
-    @State var offset: CGSize = CGSize(width: 1, height: 0.5)
     
-    let relHeight: CGFloat = 0.8660254038  //  sqrt(3) / 2
-    
-    private var colors: [Color] {
-        var result: [Color] = []
-        
-        for i in stride(from: 0, to: 360, by: 10) {
-            let hue = Double(i) / 360
-            result.append(Color(hue: hue, saturation: 1, brightness: 1))
-        }
-        return result
-    }
-    @State private var lastSaturation: CGFloat? = nil
     var body: some View {
 
-        GeometryReader{ geo in
-
-            let frameSize = min(geo.size.width, geo.size.height)
-            let strokeWidth = frameSize * 0.0625
-            let innerFrameSize = frameSize - (strokeWidth * 2)
-            let triangleWidth = innerFrameSize * 0.75
-            //let sideLength = relHeight * frameSize
-
-            let offX = (-innerFrameSize * 0.75 * (1-CGFloat(color.saturation)))
-            //let offY: CGFloat = (sideLength * 0.5 * maxY)
-
-            ZStack {
+        GeometryReader { geometry in
+            ColorWheelView(color: color, viewSize: geometry.size)
+        }
+    }
+    
+    private struct ColorWheelView: View {
+        @ObservedObject var color: CustomColor
+        @State private var isDragging: Bool = false
+        @State private var preDrag = (saturation: CGFloat(1), lightness: CGFloat(0.5))
+//        @State private var preDragSaturation: CGFloat? = nil
+//        @State private var preDragLightness: CGFloat? = nil
+        
+        var viewSize: CGSize
+        
+        private var squareSize: CGFloat{  min(viewSize.width, viewSize.height) }
+        private var strokeWidth: CGFloat{ squareSize * 0.0625 }
+        private var innerSquareSize: CGFloat{ squareSize - (strokeWidth * 2) }
+        private var triangleFrame: CGSize{ CGSize(width: innerSquareSize * pow(factor, 2), height: factor * innerSquareSize) }
+        private var dragCircleSize: CGFloat { innerSquareSize * 0.04 }
+        
+        private let factor: CGFloat = 0.8660254038  //  sqrt(3) / 2
+        private let angularGradient: AngularGradient = {
+            var _colors: [Color] = []
+            
+            for i in stride(from: 0, to: 360, by: 10) {
+                let hue = Double(i) / 360
+                _colors.append(Color(hue: hue, saturation: 1, brightness: 1))
+            }
+            return AngularGradient(gradient: Gradient(colors: _colors), center: .center, startAngle: .degrees(0), endAngle: .degrees(360))
+        }()
+        var body: some View{
+            ZStack(alignment: .center) {
                 // MARK: Circle
-                ZStack{
-                    Circle()
-                        .strokeBorder(AngularGradient(gradient: Gradient(colors: colors), center: .center, startAngle: .degrees(0), endAngle: .degrees(360)), lineWidth: strokeWidth)
-                        .frame(width: frameSize, height: frameSize)
-                    
-                    Circle()
-                        .fill(Color.white.opacity(0.6))
-                        .frame(width: strokeWidth*0.6, height: strokeWidth*0.6)
-                        .offset(x: 0.5*(frameSize - strokeWidth))
-                        .rotationEffect(.degrees(Double(color.hue)))
-                        .gesture(
-                            DragGesture()
-                                .onChanged({ value in
-                                    let vector = CGVector(dx: value.location.x, dy: value.location.y)
-                                    let radians = atan2(vector.dy, vector.dx)
-                                    var angle = radians * 180 / .pi
-
-                                    if (angle < 0){ angle += 360 }
-                                    color.hue = Float(angle)
-                                })
-                        )
-                }
+                circle
                 
                 // MARK: Triangle
-                ZStack{
+                triangle
+                    .frame(width: innerSquareSize, height: innerSquareSize)
+                    .rotationEffect(.degrees(Double(color.hue)))
+                
+            }.frame(width: squareSize, height: squareSize)
+        }
+        var circle: some View{
+            ZStack{
+                Circle()
+                    .strokeBorder(angularGradient, lineWidth: strokeWidth)
+                    .frame(width: squareSize, height: squareSize)
+                
+                Circle()
+                    .fill(Color.white.opacity(0.6))
+                    .frame(width: strokeWidth*0.6, height: strokeWidth*0.6)
+                    .offset(x: 0.5*(squareSize - strokeWidth))
+                    .rotationEffect(.degrees(Double(color.hue)))
+                    .gesture(DragGesture().onChanged(setHue))
+            }
+        }
+        
+        var triangle: some View{
+            HStack{
+                Spacer()
+           // Group {
+                ZStack {
                     ZStack{
-                        RadialGradient(colors: [.black, .clear], center: UnitPoint(x: 0.25, y: 1-relHeight), startRadius: 0, endRadius: relHeight*innerFrameSize)
-                        
-                        RadialGradient(colors: [.white, .clear], center: UnitPoint(x: 0.25, y: relHeight), startRadius: 0, endRadius: relHeight*innerFrameSize)
-                        
-                        LinearGradient(colors: [Color(hue: Double(color.hue / 360), saturation: 1, brightness: 1), Color.clear], startPoint: .trailing, endPoint: UnitPoint(x: 0.25, y: 0.5))
-                    }.clipShape(Polygon(sides: 3))//.blendMode(.screen)
-                    
+                        LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottom)
+                        RadialGradient(colors: [Color(hue: Double(color.hue / 360), saturation: 1, brightness: 1), .clear], center: UnitPoint(x: 1, y: 0.5), startRadius: 0, endRadius: triangleFrame.width)
+                    }.clipShape(Triangle())
                     Circle()
-                        .fill(Color.white.opacity(0.8))
-                        .frame(width: strokeWidth*0.3, height: strokeWidth*0.3)
-                        .position(x: innerFrameSize, y: innerFrameSize/2)
-                        .offset(x: offX, y: 0)
+                        .fill(color.toColor(), strokeBorder: Color.white, lineWidth: dragCircleSize / 6)
+                        .frame(width: dragCircleSize, height: dragCircleSize)
+                        .position(getPosition(s: CGFloat(color.saturation), l: CGFloat(color.lightness)))
                         .gesture(
                             DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                                .onChanged({ value in
-                                    if lastSaturation == nil { lastSaturation = CGFloat(color.hue) }
-
-                                    let dx = value.translation.width
-
-                                    let percentX = dx / triangleWidth
-
-                                    let d = (percentX + lastSaturation!).inRange(max: 1)
-                                    color.saturation = Float(d)// = HSL(h: color.hue, s: color.s, l: Float(d))//Float(d)
-
-                                })
-                                .onEnded({ value in
-                                    lastSaturation = nil
-                                })
+                                .onChanged(setPosition)
+                                .onEnded({ _ in isDragging = false })
                         )
-                    
-                }.frame(width: innerFrameSize, height: innerFrameSize)
-                .rotationEffect(.degrees(Double(color.hue)))
-                
-            }.frame(width: frameSize, height: frameSize)
+                }.frame(width: triangleFrame.width, height: triangleFrame.height)
+            }.frame(width: innerSquareSize, height: innerSquareSize, alignment: .trailing)
+
         }
-        .padding(0.0)
+        
+        func setHue(_ value: DragGesture.Value) {
+            let vector = CGVector(dx: value.location.x, dy: value.location.y)
+            let radians = atan2(vector.dy, vector.dx)
+            var angle = radians * 180 / .pi
+
+            if (angle < 0){ angle += 360 }
+            color.hue = Float(angle)
+        }
+        
+        func setPosition(_ value: DragGesture.Value) {
+            if !isDragging {
+                startGesture()
+                return
+            }
+            
+            // lightness --> saturation
+            
+            // !!! IMPORTANT !!!
+            // switched width / height to match coordinate system
+            let relativeDrag = (dx: (value.translation.height / triangleFrame.height), dy: (value.translation.width / triangleFrame.width))
+            
+            let relX = (preDrag.lightness + relativeDrag.dx).inRange(max: 1)
+            let relY = (preDrag.saturation + relativeDrag.dy).inRange(max: 1)
+            
+            if relY == 1 {
+                color.saturation = 1
+                color.lightness = 0.5
+                return
+            }
+            // m = 2       y != relY       x = l
+            // y = ml      y = m - ml
+            
+            // x1 = y/m             =>      y / 2
+            // x2 = (m - y) / m     => 1 - (y / 2)
+            let _x1 = relY / 2
+            let border = (x1: _x1, x2: 1 - _x1)
+            
+            
+            if border.x1...border.x2 ~= relX {
+                if relY == 0 {
+                    color.saturation = 0
+                    color.lightness = Float(relX)
+                } else{
+                    let res = getSatAndLightFromPoint(relX: Float(relX), relY: Float(relY))
+                    color.saturation = res.sat
+                    color.lightness = res.light
+                }
+            } else if relX < border.x1{
+                color.saturation = 1
+                color.lightness = Float(border.x1)
+            } else if relX > border.x2{
+                color.saturation = 1
+                color.lightness = Float(border.x2)
+            }
+            
+        }
+        func startGesture(){
+            let sat = CGFloat(color.saturation)
+            let light = CGFloat(color.lightness)
+            preDrag = (saturation: sat, lightness: light)
+            isDragging = true
+        }
+
+        
+        func getPosition(s: CGFloat, l: CGFloat) -> CGPoint {
+            let m: CGFloat = 2
+            let g_l: CGFloat = {
+                if l < 0.5 {
+                    return m * l
+                } else if l == 0.5 {
+                    return 1
+                } else { //if l > 0.5
+                    return 2 - (m * l)
+                }
+            }()
+            let f_sl: CGFloat = s * g_l
+            return UnitPoint(x: f_sl, y: l).toCGPoint(triangleFrame.width, triangleFrame.height)
+        }
     }
+}
+
+func getSatAndLightFromPoint(relX: Float, relY: Float) -> (sat: Float, light: Float){
+    // gerade durch 2 Punkte um sättigung zu bekommen
+    if relX == 0.5 {
+        return (relY, 0.5)
+    }
+    let dragInLeftHalf: Bool = relX < 0.5
+    
+    
+    let m =  dragInLeftHalf ? (relY/relX) : (-relY/(1-relX))
+    let linearEquation = makeLinearEquation(m: m, c: dragInLeftHalf ? 0 : -m)
+    let sat = linearEquation(0.5)
+    let _l = relY / (sat * 2)
+    let light = dragInLeftHalf ? _l : 1-_l
+    return (sat, light)
 }
 
 struct test: View{
@@ -420,6 +595,7 @@ struct test: View{
 
     var body: some View{
         ZStack(alignment: .topTrailing) {
+            Color.clear.frame(maxWidth: .infinity, maxHeight: .infinity)
             Button("Tap me") {
                 showPicker.toggle()
             }.popover(isPresented: $showPicker) {
@@ -430,10 +606,17 @@ struct test: View{
         //PaletteView(palette: $pal, color: color)
     }
 }
+struct testTriangle: View{
+    @StateObject var color = CustomColor(r: 1, g: 0, b: 0)
+    @State private var size: CGFloat = 600
+    var body: some View{
+            ColorWheel(color: color).frame(width: size, height: size)
+    }
+}
 struct color_picker_Previews: PreviewProvider {
     static var previews: some View {
-        test().preferredColorScheme(.dark).previewDevice("iPad Pro (12.9-inch) (5th generation)").previewInterfaceOrientation(.portraitUpsideDown)
-
-        test().previewDevice("iPhone 11 Pro").preferredColorScheme(.dark)
+        testTriangle().preferredColorScheme(.dark).previewDevice("iPad Pro (12.9-inch) (5th generation)").previewInterfaceOrientation(.portraitUpsideDown)
+        //test()
+       // test().previewDevice("iPhone 11 Pro").preferredColorScheme(.dark)
     }
 }

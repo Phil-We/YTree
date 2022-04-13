@@ -34,9 +34,12 @@
 		AC61FB2B27BD6E19004713B7 /* custom_navigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2A27BD6E18004713B7 /* custom_navigationView.swift */; };
 		AC61FB2E27C39712004713B7 /* navBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2D27C39712004713B7 /* navBarAppearance.swift */; };
 		AC61FB3027C3A6A2004713B7 /* border.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2F27C3A6A2004713B7 /* border.swift */; };
+		AC7A98632802E8AC00BE6998 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A98622802E8AB00BE6998 /* ContainerView.swift */; };
 		AC7AAFD727F33FD20082B830 /* ChuckALuck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7AAFD627F33FD20082B830 /* ChuckALuck.swift */; };
 		ACA7AA4327C40B90006BD749 /* blur_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA7AA4227C40B90006BD749 /* blur_view.swift */; };
 		ACEC646627C6AE4600F04A1C /* image_picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC646527C6AE4600F04A1C /* image_picker.swift */; };
+		ACED9CB527FC96170081D532 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACED9CB427FC96170081D532 /* triangle.swift */; };
+		ACED9CB7280079BD0081D532 /* bitmap_image.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACED9CB6280079BC0081D532 /* bitmap_image.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,9 +82,12 @@
 		AC61FB2A27BD6E18004713B7 /* custom_navigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = custom_navigationView.swift; sourceTree = "<group>"; };
 		AC61FB2D27C39712004713B7 /* navBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navBarAppearance.swift; sourceTree = "<group>"; };
 		AC61FB2F27C3A6A2004713B7 /* border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = border.swift; sourceTree = "<group>"; };
+		AC7A98622802E8AB00BE6998 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		AC7AAFD627F33FD20082B830 /* ChuckALuck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckALuck.swift; sourceTree = "<group>"; };
 		ACA7AA4227C40B90006BD749 /* blur_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blur_view.swift; sourceTree = "<group>"; };
 		ACEC646527C6AE4600F04A1C /* image_picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = image_picker.swift; sourceTree = "<group>"; };
+		ACED9CB427FC96170081D532 /* triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
+		ACED9CB6280079BC0081D532 /* bitmap_image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bitmap_image.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,7 @@
 			children = (
 				AC4EBFD427D792E50087C5F7 /* polygon.swift */,
 				AC4EBFD827D90E820087C5F7 /* square.swift */,
+				ACED9CB427FC96170081D532 /* triangle.swift */,
 			);
 			path = shapes;
 			sourceTree = "<group>";
@@ -257,6 +264,8 @@
 				ACEC646527C6AE4600F04A1C /* image_picker.swift */,
 				AC4EBFD127D791C80087C5F7 /* color_picker.swift */,
 				AC5C961427E9E8A600F1349B /* custom_alert.swift */,
+				ACED9CB6280079BC0081D532 /* bitmap_image.swift */,
+				AC7A98622802E8AB00BE6998 /* ContainerView.swift */,
 			);
 			path = reusables;
 			sourceTree = "<group>";
@@ -389,10 +398,13 @@
 				AC61FB2B27BD6E19004713B7 /* custom_navigationView.swift in Sources */,
 				AC4EBFD527D792E50087C5F7 /* polygon.swift in Sources */,
 				AC61FB0B27B94023004713B7 /* RootDirectory.swift in Sources */,
+				ACED9CB7280079BD0081D532 /* bitmap_image.swift in Sources */,
+				AC7A98632802E8AC00BE6998 /* ContainerView.swift in Sources */,
 				AC4EBFCD27D790D90087C5F7 /* color.swift in Sources */,
 				AC7AAFD727F33FD20082B830 /* ChuckALuck.swift in Sources */,
 				AC61FB0927B94023004713B7 /* cards_iosApp.swift in Sources */,
 				AC4EBFD227D791C80087C5F7 /* color_picker.swift in Sources */,
+				ACED9CB527FC96170081D532 /* triangle.swift in Sources */,
 				AC61FB2127B95C82004713B7 /* constants.swift in Sources */,
 				ACA7AA4327C40B90006BD749 /* blur_view.swift in Sources */,
 				ACEC646627C6AE4600F04A1C /* image_picker.swift in Sources */,
