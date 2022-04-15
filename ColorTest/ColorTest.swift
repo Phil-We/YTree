@@ -13,7 +13,7 @@ class ColorTest: XCTestCase {
     let convertables = [
         (rgb: RGB(r: 1, g: 0, b: 0), hslv: HSLV(h: 0, s: 1, l: 0.5)),
         (rgb: RGB(r: 1, g: 1, b: 0), hslv: HSLV(h: 60, s: 1, l: 0.5)),
-        (rgb: RGB(r: 1, g: 1, b: 1), hslv: HSLV(h: 180, s: 0, l: 1)),
+        (rgb: RGB(r: 1, g: 1, b: 1), hslv: HSLV(h: 0, s: 0, l: 1)),
         
         (rgb: RGB(r: 1, g: 1, b: 0.2), hslv: HSLV(h: 60, s: 1, l: 0.6)),
 
@@ -39,9 +39,14 @@ class ColorTest: XCTestCase {
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
+
     
     func testHSL_to_HSV_Conversion() throws {
         for color in convertables2 {
+            print("-----------")
+            print(color.hsl)
+            print("value: \(color.hsl.v) sat: \(color.hsl.s_v)")
+            print("-----------")
             XCTAssertEqual(color.hsl.s_v, color.s, accuracy: 0.01)
             XCTAssertEqual(color.hsl.v, color.v, accuracy: 0.01)
         }
@@ -64,13 +69,6 @@ class ColorTest: XCTestCase {
     }
     func testGettingRGB() throws {
         
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
     }
 
 }

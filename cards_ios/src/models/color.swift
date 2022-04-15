@@ -10,7 +10,7 @@ import Combine
 
 // MARK: HSLV
 struct HSLV: Equatable{
-    var h: Float
+    var h: Degrees
     var s_l: Float
     var l: Float
     
@@ -26,23 +26,14 @@ struct HSLV: Equatable{
     }
     
     init(h: Float, s: Float, l: Float) {
-        //assert(0...1 ~= s, "Invalid saturation value /Color/HSLV/init  l.45")
-        //assert(0...1 ~= l, "Invalid lightness value /Color/HSLV/init  l.45")
-        let _h = remainderf(h, 360)
-        if h == 360 {
-            self.h = 0
-        } else if _h > 0 {
-            self.h = _h
-        } else {
-            self.h = 360 + _h
-        }
+        self.h = Degrees(h)
         self.s_l = s.inRange(max: 1)
         self.l = l.inRange(max: 1)
     }
     
     func toRGB() -> RGB {
         let C = (1-abs(2*l-1))*s_l
-        let H = h/60
+        let H = h.degrees/60
         let X = abs(C*(1-abs(remainder(H, 2)-1)))
         let m = l - C/2
         
@@ -71,7 +62,7 @@ struct HSLV: Equatable{
     }
     
     func toColor() -> Color {
-        return Color(hue: CGFloat(h / 360), saturation: CGFloat(s_v), brightness: CGFloat(v), opacity: 1)
+        return Color(hue: CGFloat(h.degrees / 360), saturation: CGFloat(s_v), brightness: CGFloat(v), opacity: 1)
     }
 }
 
@@ -99,19 +90,7 @@ struct RGB: Equatable {
         let C = M - m
         let V = M
         let L = (M + m) / 2 // V - (C/2)
-        /*
-        let H: Float = {
-            if (C == 0) {
-                return 0
-            } else if ( V == r) {
-                return 60 * ( (g-b) / C ) + 180
-            } else if ( V == g) {
-                return 60 * ( 2 + (b-r) / C ) + 180
-            } else { // if V == B
-                return 60 * ( 4 + (r-g) / C ) + 180
-            }
-        }()
-        */
+        
         let H: Float = {
             if (C == 0) {
                 return 0
@@ -126,8 +105,6 @@ struct RGB: Equatable {
         }()
         
         let S_l: Float = {
-//            if (L == 0) || (L == 1) { return 0 }
-//            else { return abs(C / ( 1 - abs(2*V-C-1) )) }
             if C != 0{
                 return abs(C / (1 - abs(2*L-1)))
             } else { return 0}
@@ -181,10 +158,10 @@ class CustomColor: ObservableObject, Identifiable, Equatable {
     }
     
     var hue: Float{
-        get{ _hsl.h }
+        get{ _hsl.h.degrees }
         set{
             //assert(0...360 ~= newValue, "Value out of range")
-            _hsl.h = newValue
+            _hsl.h.degrees = newValue
             _rgb = _hsl.toRGB()
             objectWillChange.send()
         }
@@ -247,12 +224,12 @@ class CustomColor: ObservableObject, Identifiable, Equatable {
         return Color(red: Double(_rgb.r), green: Double(_rgb.g), blue: Double(_rgb.b), opacity: Double(alpha))
     }
     func toColor2() -> Color {
-        return Color(hue: CGFloat(_hsl.h / 360), saturation: CGFloat(_hsl.s_v), brightness: CGFloat(_hsl.v), opacity: 1)
+        return Color(hue: CGFloat(_hsl.h.degrees / 360), saturation: CGFloat(_hsl.s_v), brightness: CGFloat(_hsl.v), opacity: 1)
     }
     
     func generateShades(n: Int,lighter: Bool) -> [HSLV] {
 
-        let base = HSLV(h: _hsl.h, s: _hsl.s_l, l: 0.5)
+        let base = HSLV(h: _hsl.h.degrees, s: _hsl.s_l, l: 0.5)
         var result = [base]
 
         let step = 0.5 / Float(n)
@@ -260,9 +237,9 @@ class CustomColor: ObservableObject, Identifiable, Equatable {
             let factor = Float(i) * step
             let newCol: HSLV = {
                 if lighter {
-                    return HSLV(h: base.h, s: base.s_l, l: 0.5+factor)
+                    return HSLV(h: base.h.degrees, s: base.s_l, l: 0.5+factor)
                 } else {
-                    return HSLV(h: base.h, s: base.s_l, l: 0.5-factor)
+                    return HSLV(h: base.h.degrees, s: base.s_l, l: 0.5-factor)
                 }
             }()
             result.append(newCol)
@@ -271,7 +248,7 @@ class CustomColor: ObservableObject, Identifiable, Equatable {
     }
 }
 
-
+// MARK: - Palette
 class PaletteList: ObservableObject{
     @Published var palettes: [Palette]
     init(_ palettes: [Palette]) {

@@ -33,7 +33,7 @@ struct Subject_card: View {
             }.padding(.horizontal)
         }
         .frame(width: 300, height: 200)
-        .clipShape(RoundedRectangle(cornerRadius: regularCornerRadius))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
         
     }
 }

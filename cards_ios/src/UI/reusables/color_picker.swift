@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - Sheet
 struct ColorPickerSheet:View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var tag = 0
@@ -210,7 +211,7 @@ struct ColorPickerSheet:View {
                 HStack {
                     Text("alpha:").foregroundColor(.secondary)
                     Slider(value: $color.alpha, in: 0...1).padding(.horizontal, padd)
-                    Text("\(color.alpha.percent())%").frame(width: 30)
+                    Text("\(color.alpha.percent)%").frame(width: 30)
                 }
             }
             Section{
@@ -222,12 +223,12 @@ struct ColorPickerSheet:View {
                 HStack {
                     Text("S:").foregroundColor(.secondary)
                     Slider(value: $color.saturation, in: 0...1).padding(.horizontal, padd)
-                    Text("\(color.saturation.percent())%").frame(width: 30)
+                    Text("\(color.saturation.percent)%").frame(width: 30)
                 }
                 HStack {
                     Text("L:").foregroundColor(.secondary)
                     Slider(value: $color.lightness, in: 0...1).padding(.horizontal, padd)
-                    Text("\(color.lightness.percent())%").frame(width: 30)
+                    Text("\(color.lightness.percent)%").frame(width: 30)
                 }
 
             }
@@ -259,6 +260,7 @@ struct ColorPickerSheet:View {
     }
 }
 
+// MARK: - Palette View
 struct PaletteListView: View {
     @StateObject private var paletteList = PaletteList([
         Palette(name: "Mono", CustomColor(r: 160/255, g: 100/255, b: 178/255).generateShades(n: 10, lighter: true)),
@@ -370,6 +372,7 @@ struct PaletteView: View {
         .background(Color.white, in: RoundedRectangle(cornerRadius: 8))
     }
 }
+// MARK: - Color Shades View
 struct ShadedColorView: View {
     @ObservedObject var color: CustomColor
     @State private var baseColor: CustomColor?
@@ -404,7 +407,7 @@ struct ShadedColorView: View {
         //}
     }
 }
-
+// MARK: - Color Wheel
 struct ColorWheel: View {
     @ObservedObject var color: CustomColor
     
@@ -440,12 +443,15 @@ struct ColorWheel: View {
             }
             return AngularGradient(gradient: Gradient(colors: _colors), center: .center, startAngle: .degrees(0), endAngle: .degrees(360))
         }()
+        private var triangleModel: SLTriangleModel{
+            return SLTriangleModel(height: triangleFrame.height, width: triangleFrame.width)
+        }
         var body: some View{
             ZStack(alignment: .center) {
-                // MARK: Circle
+                // MARK: - Circle
                 circle
                 
-                // MARK: Triangle
+                // MARK: - Triangle
                 triangle
                     .frame(width: innerSquareSize, height: innerSquareSize)
                     .rotationEffect(.degrees(Double(color.hue)))
@@ -468,9 +474,7 @@ struct ColorWheel: View {
         }
         
         var triangle: some View{
-            HStack{
-                Spacer()
-           // Group {
+            Container(width: innerSquareSize, height: innerSquareSize, alignment: .trailing){
                 ZStack {
                     ZStack{
                         LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottom)
@@ -479,14 +483,14 @@ struct ColorWheel: View {
                     Circle()
                         .fill(color.toColor(), strokeBorder: Color.white, lineWidth: dragCircleSize / 6)
                         .frame(width: dragCircleSize, height: dragCircleSize)
-                        .position(getPosition(s: CGFloat(color.saturation), l: CGFloat(color.lightness)))
+                        .position(triangleModel.getPositionFromColor(s: color.saturation, l: color.lightness))
                         .gesture(
                             DragGesture(minimumDistance: 0, coordinateSpace: .local)
                                 .onChanged(setPosition)
                                 .onEnded({ _ in isDragging = false })
                         )
                 }.frame(width: triangleFrame.width, height: triangleFrame.height)
-            }.frame(width: innerSquareSize, height: innerSquareSize, alignment: .trailing)
+            }
 
         }
         
@@ -504,7 +508,15 @@ struct ColorWheel: View {
                 startGesture()
                 return
             }
+            let relativeDrag = (dx: (value.translation.width / triangleFrame.width), dy: (value.translation.height / triangleFrame.height))
             
+            let relX = (preDrag.saturation + relativeDrag.dx).inRange(max: 1)
+            let relY = (preDrag.lightness + relativeDrag.dy).inRange(max: 1)
+            
+            let result = triangleModel.getColorFromRelativeDragPosition(x: Float(relX), y: Float(relY))
+            color.saturation = result.s
+            color.lightness = result.l
+            /*
             // lightness --> saturation
             
             // !!! IMPORTANT !!!
@@ -544,7 +556,7 @@ struct ColorWheel: View {
                 color.saturation = 1
                 color.lightness = Float(border.x2)
             }
-            
+            */
         }
         func startGesture(){
             let sat = CGFloat(color.saturation)
@@ -554,20 +566,20 @@ struct ColorWheel: View {
         }
 
         
-        func getPosition(s: CGFloat, l: CGFloat) -> CGPoint {
-            let m: CGFloat = 2
-            let g_l: CGFloat = {
-                if l < 0.5 {
-                    return m * l
-                } else if l == 0.5 {
-                    return 1
-                } else { //if l > 0.5
-                    return 2 - (m * l)
-                }
-            }()
-            let f_sl: CGFloat = s * g_l
-            return UnitPoint(x: f_sl, y: l).toCGPoint(triangleFrame.width, triangleFrame.height)
-        }
+//        func getPosition(s: CGFloat, l: CGFloat) -> CGPoint {
+//            let m: CGFloat = 2
+//            let g_l: CGFloat = {
+//                if l < 0.5 {
+//                    return m * l
+//                } else if l == 0.5 {
+//                    return 1
+//                } else { //if l > 0.5
+//                    return 2 - (m * l)
+//                }
+//            }()
+//            let f_sl: CGFloat = s * g_l
+//            return UnitPoint(x: f_sl, y: l).toCGPoint(triangleFrame.width, triangleFrame.height)
+//        }
     }
 }
 
@@ -615,7 +627,7 @@ struct testTriangle: View{
 }
 struct color_picker_Previews: PreviewProvider {
     static var previews: some View {
-        testTriangle().preferredColorScheme(.dark).previewDevice("iPad Pro (12.9-inch) (5th generation)").previewInterfaceOrientation(.portraitUpsideDown)
+        testTriangle().preferredColorScheme(.light).previewDevice("iPad Pro (12.9-inch) (5th generation)").previewInterfaceOrientation(.portraitUpsideDown)
         //test()
        // test().previewDevice("iPhone 11 Pro").preferredColorScheme(.dark)
     }

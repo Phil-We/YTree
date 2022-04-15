@@ -13,14 +13,16 @@ struct cards_iosApp: App {
     
     var body: some Scene {
         WindowGroup {
-            test()
+            testTriangle()
                 //.environmentObject(dialog_controller)
             //TestView()//RootDirectory()//Custom_navigationView()
                 //.environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
-
+func undefined<T>(_ message: String = "") -> T {
+    fatalError("undefined: \(message)")
+}
 //struct MainInterface: View {
 //    @State private var showingPopover = false
 //    @State private var dialog: AnyView? = nil

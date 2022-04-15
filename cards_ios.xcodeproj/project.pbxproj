@@ -27,7 +27,6 @@
 		AC61FB1227B9402F004713B7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB1127B9402F004713B7 /* Persistence.swift */; };
 		AC61FB1527B9402F004713B7 /* cards_ios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB1327B9402F004713B7 /* cards_ios.xcdatamodeld */; };
 		AC61FB1F27B94DED004713B7 /* subject_card.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB1E27B94DED004713B7 /* subject_card.swift */; };
-		AC61FB2127B95C82004713B7 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2027B95C82004713B7 /* constants.swift */; };
 		AC61FB2327B95DD8004713B7 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = AC61FB2227B95DD8004713B7 /* Readme.md */; };
 		AC61FB2727B9B07A004713B7 /* canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2627B9B07A004713B7 /* canvas.swift */; };
 		AC61FB2927BABB3D004713B7 /* device_rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2827BABB3D004713B7 /* device_rotation.swift */; };
@@ -35,7 +34,9 @@
 		AC61FB2E27C39712004713B7 /* navBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2D27C39712004713B7 /* navBarAppearance.swift */; };
 		AC61FB3027C3A6A2004713B7 /* border.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FB2F27C3A6A2004713B7 /* border.swift */; };
 		AC7A98632802E8AC00BE6998 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A98622802E8AB00BE6998 /* ContainerView.swift */; };
-		AC7AAFD727F33FD20082B830 /* ChuckALuck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7AAFD627F33FD20082B830 /* ChuckALuck.swift */; };
+		AC873F5F2807103800ABA089 /* SLTriangleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC873F5E2807103800ABA089 /* SLTriangleModel.swift */; };
+		AC873F612808E94200ABA089 /* degrees.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC873F602808E94000ABA089 /* degrees.swift */; };
+		AC873F692808F50500ABA089 /* MathTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC873F682808F50500ABA089 /* MathTest.swift */; };
 		ACA7AA4327C40B90006BD749 /* blur_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA7AA4227C40B90006BD749 /* blur_view.swift */; };
 		ACEC646627C6AE4600F04A1C /* image_picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC646527C6AE4600F04A1C /* image_picker.swift */; };
 		ACED9CB527FC96170081D532 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACED9CB427FC96170081D532 /* triangle.swift */; };
@@ -44,6 +45,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		AC34D1FB27F4868E00A9B3FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC61FAFD27B94023004713B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC61FB0427B94023004713B7;
+			remoteInfo = cards_ios;
+		};
+		AC873F6A2808F50500ABA089 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AC61FAFD27B94023004713B7 /* Project object */;
 			proxyType = 1;
@@ -75,7 +83,6 @@
 		AC61FB1127B9402F004713B7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		AC61FB1427B9402F004713B7 /* cards_ios.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = cards_ios.xcdatamodel; sourceTree = "<group>"; };
 		AC61FB1E27B94DED004713B7 /* subject_card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subject_card.swift; sourceTree = "<group>"; };
-		AC61FB2027B95C82004713B7 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		AC61FB2227B95DD8004713B7 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		AC61FB2627B9B07A004713B7 /* canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = canvas.swift; sourceTree = "<group>"; };
 		AC61FB2827BABB3D004713B7 /* device_rotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = device_rotation.swift; sourceTree = "<group>"; };
@@ -83,7 +90,10 @@
 		AC61FB2D27C39712004713B7 /* navBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navBarAppearance.swift; sourceTree = "<group>"; };
 		AC61FB2F27C3A6A2004713B7 /* border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = border.swift; sourceTree = "<group>"; };
 		AC7A98622802E8AB00BE6998 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
-		AC7AAFD627F33FD20082B830 /* ChuckALuck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuckALuck.swift; sourceTree = "<group>"; };
+		AC873F5E2807103800ABA089 /* SLTriangleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLTriangleModel.swift; sourceTree = "<group>"; };
+		AC873F602808E94000ABA089 /* degrees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = degrees.swift; sourceTree = "<group>"; };
+		AC873F662808F50500ABA089 /* MathTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC873F682808F50500ABA089 /* MathTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTest.swift; sourceTree = "<group>"; };
 		ACA7AA4227C40B90006BD749 /* blur_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blur_view.swift; sourceTree = "<group>"; };
 		ACEC646527C6AE4600F04A1C /* image_picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = image_picker.swift; sourceTree = "<group>"; };
 		ACED9CB427FC96170081D532 /* triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
@@ -105,6 +115,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AC873F632808F50500ABA089 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -120,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				AC4EBFCC27D790D90087C5F7 /* color.swift */,
+				AC873F5E2807103800ABA089 /* SLTriangleModel.swift */,
+				AC873F602808E94000ABA089 /* degrees.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -159,6 +178,7 @@
 				AC61FB2227B95DD8004713B7 /* Readme.md */,
 				AC61FB0727B94023004713B7 /* cards_ios */,
 				AC34D1F827F4868D00A9B3FB /* ColorTest */,
+				AC873F672808F50500ABA089 /* MathTest */,
 				AC61FB0627B94023004713B7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -168,6 +188,7 @@
 			children = (
 				AC61FB0527B94023004713B7 /* YTree.app */,
 				AC34D1F727F4868C00A9B3FB /* ColorTest.xctest */,
+				AC873F662808F50500ABA089 /* MathTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,8 +236,6 @@
 				AC61FB2C27C392AD004713B7 /* modifiers */,
 				AC61FB2527B9B04A004713B7 /* drawing */,
 				AC61FB1D27B94D98004713B7 /* cards */,
-				AC61FB2027B95C82004713B7 /* constants.swift */,
-				AC7AAFD627F33FD20082B830 /* ChuckALuck.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -254,6 +273,14 @@
 				AC36A6A427F9C4DD00F9ADA1 /* wiggle_animation.swift */,
 			);
 			path = modifiers;
+			sourceTree = "<group>";
+		};
+		AC873F672808F50500ABA089 /* MathTest */ = {
+			isa = PBXGroup;
+			children = (
+				AC873F682808F50500ABA089 /* MathTest.swift */,
+			);
+			path = MathTest;
 			sourceTree = "<group>";
 		};
 		ACA7AA4127C40B1E006BD749 /* reusables */ = {
@@ -315,6 +342,24 @@
 			productReference = AC61FB0527B94023004713B7 /* YTree.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AC873F652808F50500ABA089 /* MathTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC873F6C2808F50500ABA089 /* Build configuration list for PBXNativeTarget "MathTest" */;
+			buildPhases = (
+				AC873F622808F50500ABA089 /* Sources */,
+				AC873F632808F50500ABA089 /* Frameworks */,
+				AC873F642808F50500ABA089 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC873F6B2808F50500ABA089 /* PBXTargetDependency */,
+			);
+			name = MathTest;
+			productName = MathTest;
+			productReference = AC873F662808F50500ABA089 /* MathTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -322,7 +367,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					AC34D1F627F4868C00A9B3FB = {
@@ -331,6 +376,10 @@
 					};
 					AC61FB0427B94023004713B7 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					AC873F652808F50500ABA089 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = AC61FB0427B94023004713B7;
 					};
 				};
 			};
@@ -349,6 +398,7 @@
 			targets = (
 				AC61FB0427B94023004713B7 /* cards_ios */,
 				AC34D1F627F4868C00A9B3FB /* ColorTest */,
+				AC873F652808F50500ABA089 /* MathTest */,
 			);
 		};
 /* End PBXProject section */
@@ -369,6 +419,13 @@
 				AC61FB0D27B9402F004713B7 /* Assets.xcassets in Resources */,
 				AC4EBFDB27DD199C0087C5F7 /* CheatSheet.md in Resources */,
 				AC61FB2327B95DD8004713B7 /* Readme.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC873F642808F50500ABA089 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,16 +454,16 @@
 				AC61FB1527B9402F004713B7 /* cards_ios.xcdatamodeld in Sources */,
 				AC61FB2B27BD6E19004713B7 /* custom_navigationView.swift in Sources */,
 				AC4EBFD527D792E50087C5F7 /* polygon.swift in Sources */,
+				AC873F5F2807103800ABA089 /* SLTriangleModel.swift in Sources */,
 				AC61FB0B27B94023004713B7 /* RootDirectory.swift in Sources */,
 				ACED9CB7280079BD0081D532 /* bitmap_image.swift in Sources */,
 				AC7A98632802E8AC00BE6998 /* ContainerView.swift in Sources */,
 				AC4EBFCD27D790D90087C5F7 /* color.swift in Sources */,
-				AC7AAFD727F33FD20082B830 /* ChuckALuck.swift in Sources */,
 				AC61FB0927B94023004713B7 /* cards_iosApp.swift in Sources */,
 				AC4EBFD227D791C80087C5F7 /* color_picker.swift in Sources */,
 				ACED9CB527FC96170081D532 /* triangle.swift in Sources */,
-				AC61FB2127B95C82004713B7 /* constants.swift in Sources */,
 				ACA7AA4327C40B90006BD749 /* blur_view.swift in Sources */,
+				AC873F612808E94200ABA089 /* degrees.swift in Sources */,
 				ACEC646627C6AE4600F04A1C /* image_picker.swift in Sources */,
 				AC4EBFD027D791570087C5F7 /* string_extensions.swift in Sources */,
 				AC61FB2927BABB3D004713B7 /* device_rotation.swift in Sources */,
@@ -418,6 +475,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AC873F622808F50500ABA089 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC873F692808F50500ABA089 /* MathTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -425,6 +490,11 @@
 			isa = PBXTargetDependency;
 			target = AC61FB0427B94023004713B7 /* cards_ios */;
 			targetProxy = AC34D1FB27F4868E00A9B3FB /* PBXContainerItemProxy */;
+		};
+		AC873F6B2808F50500ABA089 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC61FB0427B94023004713B7 /* cards_ios */;
+			targetProxy = AC873F6A2808F50500ABA089 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -443,7 +513,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CARDS.app/CARDS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YTree.app/YTree";
 			};
 			name = Debug;
 		};
@@ -461,7 +531,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CARDS.app/CARDS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YTree.app/YTree";
 			};
 			name = Release;
 		};
@@ -639,6 +709,44 @@
 			};
 			name = Release;
 		};
+		AC873F6D2808F50500ABA089 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RR4AF2S82J;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Phil-Weckenmann.MathTest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YTree.app/YTree";
+			};
+			name = Debug;
+		};
+		AC873F6E2808F50500ABA089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RR4AF2S82J;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Phil-Weckenmann.MathTest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YTree.app/YTree";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -665,6 +773,15 @@
 			buildConfigurations = (
 				AC61FB1927B9402F004713B7 /* Debug */,
 				AC61FB1A27B9402F004713B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC873F6C2808F50500ABA089 /* Build configuration list for PBXNativeTarget "MathTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC873F6D2808F50500ABA089 /* Debug */,
+				AC873F6E2808F50500ABA089 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
