@@ -448,16 +448,15 @@ struct ColorWheel: View {
         }
         var body: some View{
             ZStack(alignment: .center) {
-                // MARK: - Circle
                 circle
                 
-                // MARK: - Triangle
                 triangle
                     .frame(width: innerSquareSize, height: innerSquareSize)
                     .rotationEffect(.degrees(Double(color.hue)))
                 
             }.frame(width: squareSize, height: squareSize)
         }
+        // MARK: - Circle
         var circle: some View{
             ZStack{
                 Circle()
@@ -473,6 +472,7 @@ struct ColorWheel: View {
             }
         }
         
+        // MARK: - Triangle
         var triangle: some View{
             Container(width: innerSquareSize, height: innerSquareSize, alignment: .trailing){
                 ZStack {
@@ -627,7 +627,7 @@ struct testTriangle: View{
 }
 struct color_picker_Previews: PreviewProvider {
     static var previews: some View {
-        testTriangle().preferredColorScheme(.light).previewDevice("iPad Pro (12.9-inch) (5th generation)").previewInterfaceOrientation(.portraitUpsideDown)
+        test().preferredColorScheme(.light).previewDevice("iPad Pro (12.9-inch) (5th generation)").previewInterfaceOrientation(.portraitUpsideDown)
         //test()
        // test().previewDevice("iPhone 11 Pro").preferredColorScheme(.dark)
     }

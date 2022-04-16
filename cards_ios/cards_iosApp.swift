@@ -13,7 +13,7 @@ struct cards_iosApp: App {
     
     var body: some Scene {
         WindowGroup {
-            testTriangle()
+            BitMapImageView()
                 //.environmentObject(dialog_controller)
             //TestView()//RootDirectory()//Custom_navigationView()
                 //.environment(\.managedObjectContext, persistenceController.container.viewContext)
